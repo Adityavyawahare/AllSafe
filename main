@@ -1,0 +1,77 @@
+from tkinter import *
+from tkinter import messagebox
+import sys
+
+password=""
+counter=3
+num=0
+def submit(textBox):
+    global counter
+    password=textBox.get()
+    if password != "password":
+        messagebox.showerror("Error","Wrong Password")
+        textBox.delete(0,END)
+        textBox.insert(0,"")
+        counter-=1
+        if counter==0:
+            messagebox.showwarning("Warning", "Too many attempts!!")
+        elif counter==-1:
+            sys.exit()
+    else:
+        clear_frame()
+        show_data()
+
+def clear_frame():
+    for widgets in root.winfo_children():
+        widgets.destroy()
+
+def password_ver():
+    myLabel = Label(root, text="Password :")
+    textBox = Entry(root, show="*")
+    button_1 = Button(root, text="Submit", command=lambda: submit(textBox))
+
+    myLabel.grid(row=0, column=0, padx=5, pady=5)
+    textBox.grid(row=0, column=1, padx=10, pady=5)
+    button_1.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+
+def show_data():
+    # root.geometry("350x350")
+    enter_label=Label(root,text="Add Password")
+    email_label=Label(root,text="Enter :")
+    input_email_box = Entry(root)
+    password_label = Label(root, text="Password :")
+    input_pass_box = Entry(root, show="*")
+    add_button = Button(root, text="Submit",width =20, command=lambda: add(input_email_box.get(),input_pass_box.get()))
+    sr_no=Label(root,text="Sr.No.",borderwidth = 2,width = 40,relief="ridge")
+    website=Label(root,text="Website",borderwidth = 2,width = 40,relief="ridge")
+    passwrd=Label(root,text="Password",borderwidth = 2,width = 40,relief="ridge")
+
+    enter_label.grid(row=0,column=0)
+    email_label.grid(row=1,column=0,padx=(0,10),pady=(0,10))
+    input_email_box.grid(row=1, column=1,padx=(0,15),pady=(0,10))
+    password_label.grid(row=1, column=2,pady=(0,10))
+    input_pass_box.grid(row=1, column=3,padx=(15,15),pady=(0,10))
+    add_button.grid(row=1,column=4,padx=(0,0),pady=(0,10))
+    sr_no.grid(row=2,column=0,columnspan=2,pady=(0,2))
+    website.grid(row=2,column=2,columnspan=2,pady=(0,2))
+    passwrd.grid(row=2,column=4,columnspan=2,pady=(0,2))
+
+def add(email,pswrd):
+    global num
+    num+=1
+    no = Label(root, text=num,borderwidth = 1,width = 41,relief="ridge")
+    email=Label(root, text=email,borderwidth = 1,width = 41,relief="ridge")
+    passwrd=Label(root, text=pswrd,borderwidth = 1,width = 41,relief="ridge")
+
+    no.grid(row=num+3,column=0,columnspan=2,pady=(0,0))
+    email.grid(row=num+3,column=2,columnspan=2,pady=(0,0))
+    passwrd.grid(row=num+3,column=4,columnspan=2,pady=(0,0))
+
+root=Tk()
+
+# root.geometry("250x100")
+
+# password_ver()
+show_data()
+
+root.mainloop()
