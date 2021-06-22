@@ -4,12 +4,11 @@ Tell the reader (someone who does not know anything about this project)
 all he/she needs to know. The comments should usually include at least:
 ------------------------------------------------------------------------
 
-# PROJECT TITLE: Allsafe
-# PURPOSE OF PROJECT: Learn Cryptographic and hashing algorithms and its implementation
-# VERSION or DATE: 
-# HOW TO START THIS PROJECT: python main.py
-# AUTHORS: 
-# USER INSTRUCTIONS:
+ PROJECT TITLE: Allsafe
+ PURPOSE OF PROJECT: Learn Cryptographic and hashing algorithms and its implementation
+ VERSION or DATE: 
+ HOW TO START THIS PROJECT: python main.py
+ USER INSTRUCTIONS:
 
 # Tkinter Tutorial for Beginners
 
