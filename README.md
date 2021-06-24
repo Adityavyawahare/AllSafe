@@ -1,7 +1,12 @@
 ------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all he/she needs to know. The comments should usually include at least:
+Execute:
+
+import hashlib
+password=input("Enter Your Main Password: ")
+print(hashlib.sha256(password.encode()).digest().hex()[:32])
+
+Copy the output hash and paste it in the SECRET/secret.py file
+Now compile the main.py file and give your main password to the program
 ------------------------------------------------------------------------
 
  PROJECT TITLE: Allsafe
