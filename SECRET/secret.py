@@ -1,0 +1,1 @@
+secret_key=#enter your sha256 of your main password here(32bit only)

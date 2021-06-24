@@ -1,16 +1,26 @@
 from tkinter import *
 from tkinter import messagebox
 from DatabaseConn.main import get_passwords,add,delete,get_id,update
+from AES.AES import *
+from SECRET.secret import secret_key
 import sys
+import hashlib
 
-password=""
+key=""
 counter=3
 num=0
 id=0
+aes=""
 def submit(textBox):
     global counter
+    global key
+    global aes
     password=textBox.get()
-    if password != "password":
+    sha256=hashlib.sha256()
+    sha256.update(password.encode())
+    h=sha256.digest()
+    password=h.hex()[:32]
+    if password != secret_key:
         messagebox.showerror("Error","Wrong Password")
         textBox.delete(0,END)
         textBox.insert(0,"")
@@ -20,6 +30,8 @@ def submit(textBox):
         elif counter==-1:
             sys.exit()
     else:
+        key=password
+        aes=AES(key)
         clear_frame()
         show_data()
 
@@ -70,7 +82,7 @@ def add_data(mail,pswrd,frame):
     passwrd=Label(frame, text=pswrd.get(),borderwidth = 1,width = 41,relief="ridge")
     del_button = Button(frame, text="DELETE",width =7,height=1,font=("Arial", 7),command=lambda x=mail.get(),y=pswrd.get(): delete_data(x,y,frame))
     upd_button = Button(frame, text="UPDATE",width =7,height=1,font=("Arial", 7),command=lambda x=mail.get(),y=pswrd.get(): update_data(x,y,frame))
-    add(mail.get(),pswrd.get())
+    add(aes.encrypt(mail.get()),aes.encrypt(pswrd.get()))
 
     mail.delete(0,END)
     pswrd.delete(0,END)
@@ -88,10 +100,10 @@ def display_data(frame):
     for i in range(0,len(result)):
         num += 1
         no = Label(frame, text=num, borderwidth=1, width=41, relief="ridge")
-        email = Label(frame, text=result[i][1], borderwidth=1, width=41, relief="ridge")
-        passwrd = Label(frame, text=result[i][2], borderwidth=1, width=41, relief="ridge")
+        email = Label(frame, text=aes.decrypt(result[i][1]), borderwidth=1, width=41, relief="ridge")
+        passwrd = Label(frame, text=aes.decrypt(result[i][2]), borderwidth=1, width=41, relief="ridge")
         del_button = Button(frame, text="DELETE",width =7,height=1,font=("Arial", 7),command=lambda id=result[i][0]: delete_data_with_id(id,frame))
-        upd_button = Button(frame, text="UPDATE",width =7,height=1,font=("Arial", 7),command=lambda x=result[i][1],y=result[i][2]: update_data(x,y,frame))
+        upd_button = Button(frame, text="UPDATE",width =7,height=1,font=("Arial", 7),command=lambda x=aes.decrypt(result[i][1]),y=aes.decrypt(result[i][2]): update_data(x,y,frame))
 
         no.grid(row=num + 3, column=0, columnspan=2, pady=(0, 0))
         email.grid(row=num + 3, column=2, columnspan=2, pady=(0, 0))
@@ -100,7 +112,7 @@ def display_data(frame):
         upd_button.grid(row=num+3,column=7,pady=(0,0))
 
 def delete_data(mail,password,frame):
-    delete(get_id(mail,password))
+    delete(get_id(aes.encrypt(mail),aes.encrypt(password)))
     frame.destroy()
     show_data()
 
@@ -111,7 +123,7 @@ def delete_data_with_id(id,frame):
 
 def update_values(ori_mail,ori_pass,email,password,frame,upd):
     frame.destroy()
-    update(email,password,get_id(ori_mail,ori_pass))
+    update(aes.encrypt(email),aes.encrypt(password),get_id(aes.encrypt(ori_mail),aes.encrypt(ori_pass)))
     upd.destroy()
     show_data()
 
