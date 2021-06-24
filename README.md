@@ -1,10 +1,10 @@
 ------------------------------------------------------------------------
 
- PROJECT TITLE: Allsafe
- PURPOSE OF PROJECT: Learn Cryptographic and hashing algorithms and its implementation
- VERSION or DATE: 
- HOW TO START THIS PROJECT: python main.py
- USER INSTRUCTIONS:
+ -PROJECT TITLE: Allsafe
+ -PURPOSE OF PROJECT: Learn Cryptographic and hashing algorithms and its implementation
+ -VERSION or DATE: 
+ -HOW TO START THIS PROJECT: python main.py
+ -USER INSTRUCTIONS:
 
 # Tkinter Tutorial for Beginners
 
