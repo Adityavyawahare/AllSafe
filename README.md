@@ -6,7 +6,7 @@ password=input("Enter Your Main Password: ")
 print(hashlib.sha256(password.encode()).digest().hex()[:32])
 ```
 Copy the output hash and paste it in the SECRET/secret.py file
-Now compile the main.py file and give your main password to the program
+. Then compile the main.py file and give your main password to the program
 
 ------------------------------------------------------------------------
 
